@@ -1,4 +1,4 @@
-""" #1. Creare una serie di condizioni una dentro l’altra che a fronte di un input
+#1. Creare una serie di condizioni una dentro l’altra che a fronte di un input
 # per ogni if decidano se farti passare o no ( 3 livelli, fate un paragone con == )
 
 #chiedo il numero all'utente e lo converto in int
@@ -41,7 +41,7 @@ elif richiesta2 == 3:
 else: 
     lista.sort()
     print(lista)
-   """ 
+
 #3. Creare un if con else semplice, dentro l’if inserire una struttura di creazione di dati (nome, password, id dato dal sistema a crescere) 
 # e nell’else il controllo automatico la dove è presente l’account nel sistema e solo se si passa dall’else concludere lo script
 
