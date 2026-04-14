@@ -1,4 +1,4 @@
-#1. Creare una serie di condizioni una dentro l’altra che a fronte di un input
+""" #1. Creare una serie di condizioni una dentro l’altra che a fronte di un input
 # per ogni if decidano se farti passare o no ( 3 livelli, fate un paragone con == )
 
 #chiedo il numero all'utente e lo converto in int
@@ -41,26 +41,29 @@ elif richiesta2 == 3:
 else: 
     lista.sort()
     print(lista)
-    
+   """ 
 #3. Creare un if con else semplice, dentro l’if inserire una struttura di creazione di dati (nome, password, id dato dal sistema a crescere) 
 # e nell’else il controllo automatico la dove è presente l’account nel sistema e solo se si passa dall’else concludere lo script
 
+accounts = ["Auri", "Gloria", "Diego"]
+psw = [1332, 6455, 9152]
+id = [1, 2, 3]
 accesso = int(input("Preferisci accedere(1) o registrarti(2)"))
 
 if accesso == 2:
     nome = input("Inserisci il tuo nome: ")
-    password = input("Inserisci la tua password: ")
+    password = input("Inserisci la tua password di 4 cifre: ")
     id = 1
+    accounts.append(nome)
+    psw.append(password)
     print("Ti sei registrato con successo!")
     print(f"Nome utente:{nome}")
     print(f"Password: {password}")
-    print(f"ID: {id}")
-    if accesso == 1:
-        accesso2 = input("Scegli l'account con cui accedere: ")
-        if accesso2 == nome:
-                print("Accesso effettuato!")
+    print(f"ID: {id}")     
+else:
+    accesso2 = input("Scegli l'account con cui accedere: ")
+    psw2 = int(input("Digita la password da 4 cifre:"))
+    if accesso2 in accounts:
+        print("Accesso effettuato!")
         
-    else:
-        print("Accesso negato")
-        
-#DA RIVEDERE ESERCIZIO 3
+ 
