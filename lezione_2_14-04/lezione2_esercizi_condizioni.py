@@ -1,5 +1,5 @@
 #1. Creare una serie di condizioni una dentro l’altra che a fronte di un input
-# per ogni if decidano se farti passare o no ( 3 livelli, fate un paragone con == )
+#per ogni if decidano se farti passare o no ( 3 livelli, fate un paragone con == )
 
 #chiedo il numero all'utente e lo converto in int
 richiesta = int(input("Scegli un numero: "))
@@ -15,7 +15,7 @@ if richiesta >0:
             print("Il numero che hai scelto è proprio il 50!")
             
 #2. Andare a creare un if con vari elif e un else finale che gestisca un
-# menu per la selezione di un crud basilare (aggiungi modifica elimina)
+#menu per la selezione di un crud basilare (aggiungi modifica elimina)
 lista = [1, 2, 3, 4, 5, 6]
 richiesta2 = int(input("Scegli se vuoi aggiungere(1), eliminare(2) o modificare(3): "))
 print(f"La lista è {lista}")
@@ -43,7 +43,7 @@ else:
     print(lista)
    
 #3. Creare un if con else semplice, dentro l’if inserire una struttura di creazione di dati (nome, password, id dato dal sistema a crescere) 
-# e nell’else il controllo automatico la dove è presente l’account nel sistema e solo se si passa dall’else concludere lo script
+#e nell’else il controllo automatico la dove è presente l’account nel sistema e solo se si passa dall’else concludere lo script
 
 accounts = ["Auri", "Gloria", "Diego"]
 psw = [1332, 6455, 9152]
