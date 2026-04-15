@@ -1,4 +1,4 @@
-""" #1. Creare una serie di condizioni una dentro l’altra che a fronte di un input
+#1. Creare una serie di condizioni una dentro l’altra che a fronte di un input
 # per ogni if decidano se farti passare o no ( 3 livelli, fate un paragone con == )
 
 #chiedo il numero all'utente e lo converto in int
@@ -77,7 +77,7 @@ if eta <18:
     print("Mi dispiace, non puoi vedere questo film.")
 else:
     print("Puoi vedere questo film.")
-"""   
+ 
     
 #5.Scrivi un programma che chieda all'utente di inserire due
 #numeri e un'operazione da eseguire tra addizione (+), sottrazione (-),
