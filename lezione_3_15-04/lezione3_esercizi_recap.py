@@ -7,7 +7,7 @@
 #da n a 0 (compreso), decrementando di 1. Deve potersi ripetere all'infinito.
 
 #3. Utilizzo di for
-#Scrivi un sistema che prednne in input una lista di numeri e stampa il quadrato di ciascun numero della lista
+#Scrivi un sistema che prende in input una lista di numeri e stampa il quadrato di ciascun numero della lista
 
 #4. Utilizzo di if, while e for insieme
 #Scrivi un sistema che prende in input una lista di numeri interi che precedenemente è stata
@@ -21,41 +21,85 @@ recap = int(input("Scegli l'esercizio da ripetere tra: 1. Condizione if 2. Ciclo
 
 #creo menu 
 match recap:
-    case 1: #esercizio1
+    
+    #esercizio1
+    case 1: 
         numero1 = int(input("Scrivi un numero per vedere se è Pari o Dispari: "))
-        if numero1 %2 == 0: #se il numero scelto diviso per 2 fa 0, restituisce pari
+        
+        #se il numero scelto diviso per 2 fa 0, restituisce pari
+        if numero1 %2 == 0: 
             print(f"Il numero {numero1} è Pari!")
         else:
             print(f"Il numero {numero1} è Dispari!") 
-    case 2: #essercizio2
+            
+    #esercizio2
+    case 2: 
         while recap: 
             numero2 = int(input("Inserisci un numero positivo: "))   
-            for i in range(numero2, -1, -1): #dal numero scelto, fa un conto alla rovescia dalla cifra più grande a 0 
+            
+            #dal numero scelto, fa un conto alla rovescia dalla cifra più grande a 0
+            for i in range(numero2, -1, -1):  
                 print(i) 
+             
+    #esercizio3            
     case 3:  
         controllo = True
         
-        while controllo: #finché la condizione è vera, esegue questo blocco di codice
-            quadrati = [] #lista vuota iniziale 
-            numero3 = int(input("Inserisci una lista di numeri per calcolare il quadrato di ciascuno. "))
-            quadrati.append(numero3) #aggiungo il numero scelto dall'utente alla lista
-            controllore = input("Hai finito la tua lista?") #se l'utente ha finito la sua lista si esegue il quadrato dei numeri
-            if controllore == "si":
-                for quadrato in quadrati: #per ogni numero presente in lista, calcola e stampa il quadrato
-                    print(f"Il quadrato di {quadrato} è:", (quadrato ** 2))
-                controllo = False
+        #finché la condizione è vera, esegue questo blocco di codice
+        while controllo: 
+            
+            #dato che input restituisce direttamente una stringa, e split fa in modo che restituisce una lista, è come se l'input fosse direttamente la lista
+            lista = input("Inserisci una lista di numeri per calcolare il quadrato di ciascuno. Separa ogni numero con una virgola ").split(",")
+            
+            #per ogni numero presente in lista, calcola e stampa il quadrato, convertendolo prima in int
+            for i in lista: 
+                print(f"Il quadrato di {i} è:", (int(i) ** 2))
+            controllo = False
 
-""" PARTE DA RIVEDERE E COMPLETARE
+    #esercizio4
     case 4:  
+        
+        #ciclo for numero massimo
         controllo = True
         numeri = []
+         
         while controllo:
-            numero4 = int(input("Inserisci una lista di numeri per vedere il numero massimo trovato: "))
-            check = input("Hai finito la tua lista?")
-            if check == "si":
-                max = 0
+            
+            #creo la lista direttamente dall'input
+            numeri = input("Inserisci una lista di numeri per vedere il numero massimo trovato. Separa i numeri con una virgola ")
+            
+            #se la lista è vuota
+            if len(numeri) == 0:
+                print("La lista è vuota!!")
+                
+                #interrompo il ciclo
+                controllo = False
+                
+            else:       
+                
+                #separo i numeri dalla virgola
+                numeri = numeri.split(",") 
+                #seleziono il primo numero della lista e lo converto in int per confrontarlo con gli altri numeri
+                massimo = int(numeri[0])
+            
+                #ogni numero della lista lo converto in int (l'input restituisce una listta di stringhe)
                 for numero in numeri:
-                    if numero > max:
-                        max = numero 
-                print(f"Il numero massimo della tua lista è {max}")
-                controllo = False  """
+                    numero = int(numero)
+                
+                    #se il numero è maggiore del numero precedente, lo sostituisce nella variabile
+                    if numero > massimo:
+                        massimo = numero
+            
+                #ciclo while per lunghezza lista
+                contatore = 0 
+                while contatore < len(numeri):
+                    contatore += 1           
+                    
+                #dopo aver concluso il ciclo for stampa l'ultimo numero massimo trovato        
+                print(f"Il numero massimo della tua lista è {massimo}!")
+            
+                #dopo aver contato gli elementi della lista stampa il risultato
+                print(f"Il numero di elementi della tua lista è {contatore}!")
+                
+                #interrompo il ciclo
+                controllo = False   
