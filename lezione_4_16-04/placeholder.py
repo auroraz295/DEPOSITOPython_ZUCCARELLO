@@ -6,7 +6,7 @@ def funzione2():
         lista1.append(i)
     print(lista1)
 
-
+#RIVEDERE DA QUI
 #prova con una lista già predefinita
 def funzione3():    
     numeri = [1, 2, 3, 4, 5, 6]
