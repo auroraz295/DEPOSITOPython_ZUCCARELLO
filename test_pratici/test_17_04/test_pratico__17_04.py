@@ -6,6 +6,7 @@ pswutenti = []
 
 #lista per i numeri
 lista_addendi = []
+lista_risultati = []
 
 #FUNZIONE REGISTRAZIONE
 def registrazione():
@@ -51,53 +52,78 @@ def accesso():
 def numeri():
     num_addendi= int(input("Su quanti numeri vuoi effettuare l'operazione? "))
     
+    lista_operazione = []
     #finché la lista di numeri è minore del numero totale di numeri su cui fare l'operazione
-    while len(lista_addendi)< num_addendi:
+    while len(lista_operazione)< num_addendi:
        
         #chiederà x volte di inserire il numero per quanto inserito in num_addendi
         addendo = int(input("Inserisci il numero: "))
         
-        #ogni numero viene aggiunto alla lista
+        #ogni numero viene aggiunto alla lista per poter fare l'operazione
+        lista_operazione.append(addendo)
+        
+        #ogni numero viene aggiunto alla lista per poter stampare tutti gli addendi
         lista_addendi.append(addendo)
-    return lista_addendi
+    return lista_operazione
   
 #FUNZIONE ADDIZIONE        
-def addizione(lista_addendi):
+def addizione(lista_operazione):
     
     #contatore somma a zero inizialmente
     risultato_somm = 0
     
     #per ogni numero nella lista, somma
-    for i in lista_addendi:
-        risultato += i
+    for i in lista_operazione:
+        risultato_somm += i
+        
+    #salvo il risultato in una lista    
+    lista_risultati.append(risultato_somm)    
     print(f"Il risultato della tua addizione è: {risultato_somm}") 
-    return risultato_somm   
+    return risultato_somm  
  
 #FUNZIONE SOTTRAZIONE            
-def sottrazione(lista_addendi):
-    risultato_sott = 0
-    for i in lista_addendi:
-        risultato_sott = i - risultato_sott
+def sottrazione(lista_operazione):
+    
+    #prendo il primo numero, altrimenti verranno sottrazioni negative
+    risultato_sott = lista_operazione[0]
+    for i in lista_operazione[1:]:
+        risultato_sott -= i 
+        
+    #salvo il risultato in una lista    
+    lista_risultati.append(risultato_sott)      
     print(f"Il risultato della tua sottrazione è {risultato_sott}")
     return risultato_sott
 
 #FUNZIONE MOLTIPLICAZIONE
-def moltiplicazione(lista_addendi):
+def moltiplicazione(lista_operazione):
     
     #prendo il primo numero della lista, non potevo iniziare il contatore con 0 o tutti i risultati sarebbero stati 0
-    risultato_mol = lista_addendi[0]
-    for i in lista_addendi:
-        risultato_mol = i * risultato_mol
+    risultato_mol = lista_operazione[0]
+    
+    #seleziono dal secondo numero in poi o viene il risultato falsato
+    for i in lista_operazione[1:]:
+        risultato_mol = risultato_mol * i 
+        
+    #salvo il risultato in una lista    
+    lista_risultati.append(risultato_mol)      
     print(f"Il risultato della tua moltiplicazione è {risultato_mol}")
     return risultato_mol
 
 #FUNZIONE DIVISIONE
-def divisione(lista_addendi):
+def divisione(lista_operazione):
     
     #anche qui preferisco prendere il primo numero della lista
-    risultato_div = lista_addendi[0]
-    for i in lista_addendi:
-        risultato_div = risultato_div/i
+    risultato_div = lista_operazione[0]
+    
+    #prendo il secondo dalla lista
+    for i in lista_operazione[1:]:
+        if i == 0:
+            print("Errore. Impossibile dividere per zero!")
+        else:    
+            risultato_div = risultato_div/i
+        
+    #salvo il risultato in una lista    
+    lista_risultati.append(risultato_div)      
     print(f"Il risultato della tua divisione è: {risultato_div}")
     return risultato_div
 
@@ -108,6 +134,9 @@ def potenza():
     num1 = int(input("Inserisci il numero su cui effettuare una potenza: ")) 
     num2 = int(input("Inserisci la base su cui elevare il tuo numero: ")) 
     risultato_pot = num1 ** num2
+    
+    #salvo il risultato in una lista    
+    lista_risultati.append(risultato_pot)  
     print(f"Il risultato della tua potenza è {risultato_pot}")      
     return risultato_pot
 
@@ -117,10 +146,12 @@ def altro():
   
 #FUNZIONE ADDENDI, deve restituire la stampa degli addendi scelti - DA COMPLETARE
 def addendi():
+    print(f"Gli addendi che hai utilizzato nelle operazioni sono: {lista_addendi}")
     pass
     
 #FUNZIONE RISULTATI, deve restituire la stampa di tutti i risultati ottenuti - DA COMPLETARE    
-def risultati():    
+def risultati():  
+    print(f"I risultati ottenuti nelle tue operazioni sono: {lista_risultati} ")  
     pass
 
 #MENU CALCOLATRICE, ogni operazione è una funzione            
@@ -151,6 +182,8 @@ def stampa():
         
         case _: altro()
 
+
+
 #MENU COMPLETO           
 while True:
     #imposto inanzitutto il login falso
@@ -167,14 +200,17 @@ while True:
     
     #solo chi ha avuto accesso all'account può eseguire le operazioni
     if login == True:
+        
+        #faccio iterare questo menu solo 5 volte e poi richiederà il login
+        for i in range(5):
          
-        menu2 = int(input("Vuoi usare la calcolatrice o stampare i dati? 1. Calcolatrice 2.Stampa dati - "))  
+            menu2 = int(input("Vuoi usare la calcolatrice o stampare i dati? 1. Calcolatrice 2.Stampa dati - "))  
     
-        match menu2:
-            case 1: calcolatrice()
+            match menu2:
+                case 1: calcolatrice()
             
-            case 2: stampa()  
+                case 2: stampa()  
             
-            case _: altro()
+                case _: altro()
                 
-    
+           
