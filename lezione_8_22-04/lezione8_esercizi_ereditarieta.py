@@ -13,14 +13,32 @@ class Animale:
       
 #SOTTOCLASSI            
 class Leone(Animale):
+    def __init__(self, nome, eta):
+        super().__init__(nome, eta)
+        
+    def fai_suono(self):
+        print(f"{self.nome} ruggisce!")
+    
     def caccia(self):
         print(f"Il leone {self.nome} sta cacciando una preda!")
 
 class Cane(Animale):
+    def __init__(self, nome, eta):
+        super().__init__(nome, eta)
+        
+    def fai_suono(self):
+        print(f"{self.nome} abbaia!")    
+            
     def mangia(self):
         print(f"Il cane {self.nome} sta rosicchiando un osso!")
 
 class Pesce(Animale):
+    def __init__(self, nome, eta):
+        super().__init__(nome, eta)
+        
+    def fai_suono(self):
+        print(f"{self.nome} squittisce!")        
+    
     def nuota(self):
         print(f"Il pesciolino {self.nome} sta nuotando nell'acquario!")
 
