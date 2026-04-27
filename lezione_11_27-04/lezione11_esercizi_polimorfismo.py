@@ -75,3 +75,121 @@ match comando:
         gestione.paga(metodo_scelto3, importo1)
 
 
+#ESERCIZIO2 
+
+#CLASSE BASE - posto
+class Posto:
+    def __init__(self, numero:int, fila:str):
+        self._numero = numero 
+        self._fila = fila
+        self._occupato = False 
+        
+    #PRENOTAZIONE
+    #se l'inizializzazione è false non si può prenotare, 
+    #altrimenti è prenotabile
+    def prenota(self):
+        if self._occupato == False:
+            print("Ci dispiace, il posto non è prenotabile.")
+        else:
+            print(f"Il posto numero {self._numero} della fila {self._fila} è stato prenotato.")
+    
+    #se il posto è occupato cambia l'inizializzazione da false a true per renderlo libero
+    def libera(self):
+        if self._occupato == False:
+            _occupato = True
+            print(f"Il posto numero {self._numero} della fila {self._fila} è stato liberato.")
+        else:
+            print("Il posto non era stato prenotato. ")
+      
+    #restituisce informazioni su numero, fila e stato occupato      
+    def get_info(self):
+        return self._numero and self._fila and self._occupato 
+    
+#CLASSI DERIVATE
+
+#POSTO VIP
+class PostoVIP(Posto):
+    def __init__(self, servizi_extra:list):
+        super().__init__(self._numero, self._fila)
+        
+        #lista di servizi extra in più
+        servizi_extra = ["Accesso al lounge", "Servizio in posto", "Cena inclusa"]
+        self.__servizi_extra = servizi_extra
+    
+    #se il posto è occcupato non è prenotabile, altrimenti si possono scegliere dei servizi extra
+    def prenota(self):
+        if self._occupato == False:
+            print("Ci dispiace, il posto non è prenotabile.")
+        else:
+            print(f"Il posto numero {self._numero} della fila {self._fila} è stato prenotato.")
+            while True:
+                comando_posto_vip = int(input("Attivazione servizi extra: 1. Accesso al lounge 2. Servizio in posto 3. Cena inclusa"))
+                match comando_posto_vip:
+                    
+                    #SERVIZI EXTRA DA DEFINIRE
+                    case 1:
+                        pass
+                    case 2:
+                        pass
+                    case 3:
+                        pass
+                    case _:
+                        print("Opzione non disponibile.")
+    
+#POSTO STANDARD - DA DEFINIRE
+class PostoStandard(Posto):
+    def __init__(self, costo):
+        super().__init__(self._numero, self._fila)
+        self.__costo = costo
+    
+    def prenota(self):
+        pass
+    
+#CLASSE TEATRO - DA DEFNIRE
+class Teatro:
+    def __init__(self, posti:list):
+        self._posti = posti
+        
+    def aggiungi_posto(self, posto):
+        pass
+    
+    def prenota_posto(self, numero, fila):
+        pass
+    
+    def stampa_posti_occupati(self):
+        pass
+        
+    
+
+
+# MAIN - DA DEFINIRE
+while True:
+    comando = input("Vuoi accedere al teatro? SI / NO - ")
+    match comando: 
+        case "SI":
+            comando2 = int(input("A quale servizio vuoi accedere? 1. Prenota posto 2. Libera posto - "))
+            match comando2:
+                case 1:
+                    comando3 = int(input("1. Prenotazione Posto Standard 2. Prenotazione Posto VIP - "))
+                    match comando3:
+                        
+                        case 1:
+                            pass
+                        
+                        case 2:
+                            pass
+                        
+                case 2:
+                    pass
+                
+                case _:
+                    print("Opzione non disponibile.")
+                
+                
+                
+        case "NO":
+            break
+        
+        case _: 
+            print("Opzione non disponibile.")
+            
