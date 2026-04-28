@@ -8,7 +8,7 @@
 
 #import per la classe astratta
 from abc import ABC, abstractmethod
-'''
+
 #CLASSE ASTRATTA
 #nelle classi astratte va sempre (ABC) dato che è un'ereditarietà da abc
 class Impiegato(ABC):
@@ -20,13 +20,13 @@ class Impiegato(ABC):
     #METODO ASTRATTO   
     #va solo prima dei metodi astratti  
     @abstractmethod
-    def calcola_stipendio():
+    def calcola_stipendio(self):
         pass
     
 #EXTRA - CLASSE ASTRATTA PROMOZIONE
 class Promozione(ABC):
     @abstractmethod
-    def promozione_stipendio():
+    def promozione_stipendio(self):
         pass  
  
 #CLASSI DERIVATE     
@@ -86,7 +86,7 @@ p1.informazioni()
 p2.informazioni()
 p3.informazioni()
 p4.informazioni()
-'''
+
 #ESERCIZIO 2
 #Sistema Astratto di Trasporto Merci
 
@@ -115,7 +115,7 @@ class VeicoloTrasporto(ABC):
     
     #METODO ASTRATTO per il costo manutenzione
     @abstractmethod
-    def costo_manutenzione():
+    def costo_manutenzione(self):
         pass
     
     #restituisce targa e carico
@@ -134,12 +134,12 @@ class Camion(VeicoloTrasporto):
     
     #override costo manutenzione con personalizzazione numero assi    
     def costo_manutenzione(self):
-        self._costo_manutenzione = (100*self._numero_assi) + (1*self._carico_attuale)
+        self._costo_manutenzione = (100*self._numero_assi) + (1*self._peso_massimo)
         return self._costo_manutenzione
     
+    #restituisce il nome della classe 
     def get_tipo(self):
-        tipo = "Camion"
-        return tipo
+        return self.__class__.__name__
         
         
     
@@ -152,17 +152,17 @@ class Furgone(VeicoloTrasporto):
     #override costo manutenzione con personalizzazione elettrico/diesel
     def costo_manutenzione(self):
         if self._alimentazione == "Elettrico":
-            self._costo_manutenzione = 200 + (1*self._carico_attuale)
+            self._costo_manutenzione = 200 + (1*self._peso_massimo)
             return self._costo_manutenzione
         elif self._alimentazione == "Diesel":
-            self._costo_manutenzione = 150 + (1*self._carico_attuale)
+            self._costo_manutenzione = 150 + (1*self._peso_massimo)
             return self._costo_manutenzione
         else:
             print("Costo manutenzione non disponibile.")  
-        
+            
+    #restituisce il nome della classe   
     def get_tipo(self):
-        tipo = "Furgone"
-        return tipo
+        return self.__class__.__name__
          
         
 class Motocarro(VeicoloTrasporto):
@@ -172,13 +172,12 @@ class Motocarro(VeicoloTrasporto):
         self._anni_servizio = anni_servizio
     
     def costo_manutenzione(self):
-        self._costo_manutenzione = (50*self._anni_servizio) + (1*self._carico_attuale)
+        self._costo_manutenzione = (50*self._anni_servizio) + (1*self._peso_massimo)
         return self._costo_manutenzione
     
-    #da rivedere con tyype(v)
+    #restituisce il nome della classe 
     def get_tipo(self):
-        tipo = "Motocarro"
-        return tipo
+        return self.__class__.__name__ 
         
 
 #MAIN
@@ -196,6 +195,10 @@ class GestoreFlotta:
             #se una targa di un veicolo corrisponde alla targa immessa, rimuove dalla lista
             if v.get_targa() == targa:
                 self.veicoli.remove(v)
+                print(f"Il veicolo con targa {targa} è stato rimosso.")
+                break
+        else:
+            print(f"Il veicolo con targa {targa} non esiste.")
     
     def costo_totale_manutenzione(self):
         somma_costo = 0
@@ -206,12 +209,12 @@ class GestoreFlotta:
     def stampa_veicoli(self):
         for v in self.veicoli:
             print(f"Targa veicolo: {v.get_targa()}- Tipo veicolo: {v.get_tipo()} - Carico attuale: {v.get_carico()}")
-    
+ 
+#SIMULAZIONE SENZA MAIN    
 v1 = Camion("XC102DY", 200, 3)
 v2 = Furgone("AA374HC", 350, "Diesel")
 v3 = Furgone("GN812WA", 250, "Elettrico")
 v4 = Motocarro("LT459SZ", 400, 15)
-
 
 gestione = GestoreFlotta()
 
@@ -224,35 +227,64 @@ gestione.costo_totale_manutenzione()
 v1.carica(100)
 gestione.stampa_veicoli()
 
+
+#MAIN 
 while True:
+    
     comando = input("Vuoi aprire il Gestore Flotta? SI / NO ")
     match comando:
+        
         case "SI":
+            
             comando2 = int(input("Cosa vuoi fare? 1. Aggiungere un veicolo - 2. Rimuovere un veicolo - 3. Stampare la somma dei costi di manutenzione - 4. Stampare tutti i veicoli - "))
             match comando2:
+                
+                #CASE 1 - AGGIUNGI VEICOLO 
                 case 1:
-                    targa = input("Scrivi la targa: ")
-                    peso_massimo = int(input("Inserisci il peso massimo in kg: "))
-                    numero_assi = int(input("Se è un camion, inserisci il numero di assi: "))
-                    alimentazione = input("Se è un furgone, inserisci l'alimentazione: Diesel / Elettrico")
-                    anni_servizio = int(input("Se è un motocarro, inserisci gli anni di servizio: "))
                     
-                    camion = Camion(targa, peso_massimo, numero_assi)
-                    furgone = Furgone(targa, peso_massimo, alimentazione)
-                    motocarro = Motocarro(targa, peso_massimo, anni_servizio)
+                    #seleziona veicolo
+                    tipo = int(input("Quale tipo di veicolo vuoi aggiungere? 1. Camion - 2. Furgone - 3. Motocarro "))
+                    targa = input("Targa: ")
+                    peso_massimo = int(input("Peso massimo in kg: "))
                     
-                    if camion:
-                        pass
-                        
+                    #case camion
+                    if tipo == 1:
+                        n_assi = int(input("Numero di assi: "))
+                        nuovo_veicolo = Camion(targa, peso_massimo, n_assi)
+                     
+                    #case furgone    
+                    elif tipo == 2:
+                        alimentazione = input("Alimentazione: Diesel / Elettrico - ")
+                        nuovo_veicolo = Furgone(targa, peso_massimo, alimentazione)
+                    
+                    #case motocarro
+                    elif tipo == 3:
+                        anni_servizio = int(input("Anni di servizio: "))
+                     
+                        nuovo_veicolo = Motocarro(targa, peso_massimo, anni_servizio)
+                    else:
+                        print("Tipo di veicolo non valido.")
+                        nuovo_veicolo = None
+                     
+                    #se il nuovo veicolo esiste, aggiungerlo alla gestione flotta    
+                    if nuovo_veicolo:
+                        gestione.aggiungi_veicolo(nuovo_veicolo)
+    
+                #CASE 2 - RIMUOVI VEICOLO         
                 case 2:
-                    pass
+                    targa_rimossa = input("Targa del veicolo da rimuovere: ")
+                    gestione.rimuovi_veicolo(targa_rimossa)
+                    
                 
+                #CASE 3 - STAMPA SOMMA COSTI
                 case 3:
-                    pass
+                    gestione.costo_totale_manutenzione()
                 
+                #CASE 4 - STAMPA VEICOLI
                 case 4:
-                    pass
+                    gestione.stampa_veicoli()
                 
+                #CASE DEFAULT
                 case _:
                     print("Opzione non disponibile.")
                     

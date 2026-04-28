@@ -4,7 +4,7 @@
 #azione, permettendo alle diverse sottoclassi di implementare i loro specifici
 #comportamenti di pagamento, pur aderendo all'interfaccia comune definita dalla classe
 #base.
-'''import random 
+import random 
 
 #SUPERCLASSI
 class Utente:
@@ -73,7 +73,7 @@ match comando:
 
     case 4:
         gestione.paga(metodo_scelto3, importo1)
-'''
+
 
 #ESERCIZIO2 
 
