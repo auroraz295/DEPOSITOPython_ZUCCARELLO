@@ -5,9 +5,10 @@
 #Inoltre, ogni impiegato ha un metodo per calcolare il suo stipendio mensile, che
 #può variare a seconda del ruolo.
 
+
 #import per la classe astratta
 from abc import ABC, abstractmethod
-
+'''
 #CLASSE ASTRATTA
 #nelle classi astratte va sempre (ABC) dato che è un'ereditarietà da abc
 class Impiegato(ABC):
@@ -85,3 +86,180 @@ p1.informazioni()
 p2.informazioni()
 p3.informazioni()
 p4.informazioni()
+'''
+#ESERCIZIO 2
+#Sistema Astratto di Trasporto Merci
+
+#CLASSE ASTRATTA
+class VeicoloTrasporto(ABC):
+    def __init__(self, targa:str, peso_massimo:int):
+        self._targa = targa
+        self._peso_massimo = peso_massimo
+        
+        #inizializzazione a zero
+        carico_attuale = 0 
+        self._carico_attuale = carico_attuale
+    
+    #se il peso da caricare è minore del peso massimo, si aggiunge il carico    
+    def carica(self, peso):
+        if peso <= self._peso_massimo:
+            self._carico_attuale += peso
+            return self._carico_attuale
+        else:
+            print("Peso non consentito, supera la capacità del veicolo.")
+    
+    #inizializza il carico attuale di nuovo a zero
+    def scarica(self):
+        self._carico_attuale = 0
+        return self._carico_attuale
+    
+    #METODO ASTRATTO per il costo manutenzione
+    @abstractmethod
+    def costo_manutenzione():
+        pass
+    
+    #restituisce targa e carico
+    def get_targa(self):
+        return self._targa
+        
+    def get_carico(self):
+        return self._carico_attuale
+
+#SOTTOCLASSI CONCRETE   
+class Camion(VeicoloTrasporto):
+    def __init__(self, targa, peso_massimo, numero_assi:int):
+        super().__init__(targa, peso_massimo)
+        
+        self._numero_assi = numero_assi
+    
+    #override costo manutenzione con personalizzazione numero assi    
+    def costo_manutenzione(self):
+        self._costo_manutenzione = (100*self._numero_assi) + (1*self._carico_attuale)
+        return self._costo_manutenzione
+    
+    def get_tipo(self):
+        tipo = "Camion"
+        return tipo
+        
+        
+    
+class Furgone(VeicoloTrasporto):
+    def __init__(self, targa, peso_massimo, alimentazione:str):
+        super().__init__(targa, peso_massimo)
+        
+        self._alimentazione = alimentazione
+    
+    #override costo manutenzione con personalizzazione elettrico/diesel
+    def costo_manutenzione(self):
+        if self._alimentazione == "Elettrico":
+            self._costo_manutenzione = 200 + (1*self._carico_attuale)
+            return self._costo_manutenzione
+        elif self._alimentazione == "Diesel":
+            self._costo_manutenzione = 150 + (1*self._carico_attuale)
+            return self._costo_manutenzione
+        else:
+            print("Costo manutenzione non disponibile.")  
+        
+    def get_tipo(self):
+        tipo = "Furgone"
+        return tipo
+         
+        
+class Motocarro(VeicoloTrasporto):
+    def __init__(self, targa, peso_massimo, anni_servizio:int):
+        super().__init__(targa, peso_massimo)
+        
+        self._anni_servizio = anni_servizio
+    
+    def costo_manutenzione(self):
+        self._costo_manutenzione = (50*self._anni_servizio) + (1*self._carico_attuale)
+        return self._costo_manutenzione
+    
+    #da rivedere con tyype(v)
+    def get_tipo(self):
+        tipo = "Motocarro"
+        return tipo
+        
+
+#MAIN
+class GestoreFlotta:
+    def __init__(self):
+        veicoli = []
+        self.veicoli = veicoli
+        
+    def aggiungi_veicolo(self, veicolo:VeicoloTrasporto):
+        self.veicoli.append(veicolo)
+    
+    def rimuovi_veicolo(self, targa):
+        #check di ogni veicolo nella lista
+        for v in self.veicoli:
+            #se una targa di un veicolo corrisponde alla targa immessa, rimuove dalla lista
+            if v.get_targa() == targa:
+                self.veicoli.remove(v)
+    
+    def costo_totale_manutenzione(self):
+        somma_costo = 0
+        for v in self.veicoli:
+            somma_costo +=  v.costo_manutenzione() 
+        print(f"Somma costi manutenzione: {somma_costo}")
+    
+    def stampa_veicoli(self):
+        for v in self.veicoli:
+            print(f"Targa veicolo: {v.get_targa()}- Tipo veicolo: {v.get_tipo()} - Carico attuale: {v.get_carico()}")
+    
+v1 = Camion("XC102DY", 200, 3)
+v2 = Furgone("AA374HC", 350, "Diesel")
+v3 = Furgone("GN812WA", 250, "Elettrico")
+v4 = Motocarro("LT459SZ", 400, 15)
+
+
+gestione = GestoreFlotta()
+
+gestione.aggiungi_veicolo(v1)
+gestione.aggiungi_veicolo(v2)
+gestione.aggiungi_veicolo(v3)
+gestione.aggiungi_veicolo(v4)
+gestione.stampa_veicoli()
+gestione.costo_totale_manutenzione()
+v1.carica(100)
+gestione.stampa_veicoli()
+
+while True:
+    comando = input("Vuoi aprire il Gestore Flotta? SI / NO ")
+    match comando:
+        case "SI":
+            comando2 = int(input("Cosa vuoi fare? 1. Aggiungere un veicolo - 2. Rimuovere un veicolo - 3. Stampare la somma dei costi di manutenzione - 4. Stampare tutti i veicoli - "))
+            match comando2:
+                case 1:
+                    targa = input("Scrivi la targa: ")
+                    peso_massimo = int(input("Inserisci il peso massimo in kg: "))
+                    numero_assi = int(input("Se è un camion, inserisci il numero di assi: "))
+                    alimentazione = input("Se è un furgone, inserisci l'alimentazione: Diesel / Elettrico")
+                    anni_servizio = int(input("Se è un motocarro, inserisci gli anni di servizio: "))
+                    
+                    camion = Camion(targa, peso_massimo, numero_assi)
+                    furgone = Furgone(targa, peso_massimo, alimentazione)
+                    motocarro = Motocarro(targa, peso_massimo, anni_servizio)
+                    
+                    if camion:
+                        pass
+                        
+                case 2:
+                    pass
+                
+                case 3:
+                    pass
+                
+                case 4:
+                    pass
+                
+                case _:
+                    print("Opzione non disponibile.")
+                    
+        
+        case "NO":
+            print("Gestore flotta chiuso.")
+            break
+        
+        case _: 
+            print("Opzione non disponibile.")
