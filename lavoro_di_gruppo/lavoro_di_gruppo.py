@@ -1,8 +1,5 @@
 #GESTIONE OFFICINA ELETTRODOMESTICI
 
-#importo collezione abc per l'astrazione
-from abc import ABC, abstractmethod
-
 #CLASSE BASE - ELETTRODOMESTICO
 class Elettrodomestico():
     def __init__(self, marca:str, modello:str, anno_acquisto:int, guasto:str):
@@ -16,8 +13,7 @@ class Elettrodomestico():
         print(f"Marca: {self.get_marca()} - Modello: {self.get_modello()} - Anno acquisto: {self.get_anno_acquisto()} - Guasto: {self.get_guasto()}")
     
     def stima_costo_base(self):
-        self.__costo_base = 100
-        return self.__costo_base
+        return 100
         
     #GET E SET MARCA ELETTRODOMESTICO    
     def get_marca(self):
@@ -67,6 +63,8 @@ class Lavatrice(Elettrodomestico):
     #METODO STIMA COSTO   
     def stima_costo_base(self):
         
+        self.__costo_base = super().stima_costo_base()
+        
         #bonus attributi aggiuntivi
         self.__bonus_capacita = 25
         self.__bonus_giri =  40
@@ -76,16 +74,16 @@ class Lavatrice(Elettrodomestico):
         if self.__capacita_kg <= 10:
             
             if self.__giri_centrifuga <=30:
-                print(f"Costo base manutenzione: {self.stima_costo_base()}") 
+                print(f"Costo base manutenzione: {self.__costo_base}") 
             else:
-                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_giri}") 
+                print(f"Costo base manutenzione: {self.self.__costo_base + self.__bonus_giri}") 
         
         elif self.__capacita_kg > 10:
 
             if self.__giri_centrifuga <=30:
-                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_capacita}") 
+                print(f"Costo base manutenzione: {self.self.__costo_base + self.__bonus_capacita}") 
             else:
-                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_capacita + self.__bonus_giri}") 
+                print(f"Costo base manutenzione: {self.self.__costo_base + self.__bonus_capacita + self.__bonus_giri}") 
             
         else:
             print("Costo base non disponibile.")
@@ -93,12 +91,15 @@ class Lavatrice(Elettrodomestico):
 #CLASSE FRIGORIFERO         
 class Frigorifero(Elettrodomestico):
     def __init__(self, marca, modello, anno_acquisto, guasto, litri:int, ha_freezer:bool):
-        super().init(marca, modello, anno_acquisto, guasto)
+        super().__init__(marca, modello, anno_acquisto, guasto)
         
         self.__litri = litri
         self.__ha_freezer = ha_freezer
-        
+     
+    #METODO STIMA COSTO     
     def stima_costo_base(self):
+        
+        self.__costo_base = super().stima_costo_base()
         
         #bonus attributi aggiuntivi
         self.__bonus_litri = 50
@@ -109,16 +110,16 @@ class Frigorifero(Elettrodomestico):
         if self.__litri <= 10:
             
             if self.__ha_freezer == False:
-                print(f"Costo base manutenzione: {self.stima_costo_base()}") 
+                print(f"Costo base manutenzione: {self.__costo_base}") 
             else:
-                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_freezer}") 
+                print(f"Costo base manutenzione: {self.__costo_base + self.__bonus_freezer}") 
         
         elif self.__litri > 10:
 
             if self.__ha_freezer == True:
-                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_litri + self.__bonus_freezer}") 
+                print(f"Costo base manutenzione: {self.__costo_base + self.__bonus_litri + self.__bonus_freezer}") 
             else:
-                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_litri}") 
+                print(f"Costo base manutenzione: {self.__costo_base + self.__bonus_litri}") 
             
         else:
             print("Costo base non disponibile.")    
@@ -126,7 +127,87 @@ class Frigorifero(Elettrodomestico):
 #CLASSE FORNO 
 class Forno(Elettrodomestico):
     def __init__(self, marca, modello, anno_acquisto, guasto, alimentazione, ventilato):
-        super().init(marca, modello, anno_acquisto, guasto)
+        super().__init__(marca, modello, anno_acquisto, guasto)
         
-        self.__alimentazione = alimentazione #"elettrico" o "gas"
+        self.__alimentazione = alimentazione #elettrico o gas
         self.__ventilato = ventilato
+    
+    #METODO STIMA COSTO     
+    def stima_costo_base(self):
+        
+        self.__costo_base = super().stima_costo_base()
+        
+        #bonus attributi aggiuntivi
+        self.__bonus_tipo_forno = 100
+        self.__bonus_ventilazione =  25
+
+        
+        #condizioni per il bonus
+        if self.__alimentazione == "elettrico":
+            
+            if self.__ventilato == False:
+                print(f"Costo base manutenzione: {self.__costo_base + self.__bonus_ventilazione}") 
+            else:
+                print(f"Costo base manutenzione: {self.__costo_base}") 
+        
+        elif self.__alimentazione == "gas":
+
+            if self.__ventilato == True:
+                print(f"Costo base manutenzione: {self.__costo_base + self.__bonus_tipo_forno + self.__bonus_ventilazione}") 
+            else:
+                print(f"Costo base manutenzione: {self.__costo_base + self.__bonus_tipo_forno}") 
+            
+        else:
+            print("Costo base non disponibile.")   
+            
+#CLASSE TICKET            
+class TicketRiparazione:
+    def __init__(self, id_ticket:int, elettrodomestico:Elettrodomestico):
+        self.__id_ticket = id_ticket
+        self.__elettrodomestico = elettrodomestico
+        self.__stato = "Aperto"
+        self.__note = []
+    
+    
+    #GET E SET STATO
+    def get_stato(self):
+        return self.__stato
+    
+    def set_stato(self, nuovo_stato):
+        self.__stato = nuovo_stato
+        return self.__stato
+     
+    #GET E SET _NOTE 
+    def get_note(self):
+        return self.__note
+    
+    def set_note(self, nuove_note):
+        self.__note = nuove_note
+        return self.__note
+    
+    #METODI AGGIUNGI NOTA - CALCOLA PREVENTIVO  
+    def aggiungi_nota(self, testo):
+        self.__note.append(testo)
+        
+    def calcola_preventivo(self):
+        self.__elettrodomestico.stima_costo_base()
+ 
+ 
+#CLASSE OFFICINA        
+class Officina:
+    def __init__(self, nome:str):
+        self.nome = nome
+        self.tickets =  []
+    
+    #METODO AGGIUNGI TICKET     
+    def aggiungi_ticket(self, ticket:TicketRiparazione):
+        self.tickets.append(ticket)
+        
+        
+ 
+#SIMULAZIONE      
+prova1 = Forno("Marca", "Modello", 2020, "Guasto", "gas", True )
+
+prova2 = TicketRiparazione(123, prova1)
+
+prova2.calcola_preventivo()
