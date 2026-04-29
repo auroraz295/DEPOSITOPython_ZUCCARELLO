@@ -25,15 +25,12 @@ Questo progetto implementa un sistema di gestione per un'officina di riparazioni
 ###  💻 Come testarlo
 
 Il file contiene già una sezione di simulazione finale che:
-
-Crea un parco macchine di test.
-
-Apre i ticket di riparazione.
-
-Simula il cambio di stato e la chiusura dei lavori.
-
-Stampa il riepilogo finanziario e statistico dell'officina.
-
+<ul>
+<li>Crea un parco macchine di test.</li>
+<li>Apre i ticket di riparazione.</li>
+<li>Simula il cambio di stato e la chiusura dei lavori.</li>
+<li>Stampa il riepilogo finanziario e statistico dell'officina.</li>
+</ul>
 ### Autori
 
 Sviluppato da: <a href ="https://github.com/auroraz295"> Aurora Zuccarello</a> & <a href="https://github.com/sasabru/DepositoPython_Bruno"> Salvatore Bruno</a>
