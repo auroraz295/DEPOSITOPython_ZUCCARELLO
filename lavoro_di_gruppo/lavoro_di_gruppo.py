@@ -1,5 +1,8 @@
 #GESTIONE OFFICINA ELETTRODOMESTICI
 
+#importo collezione abc per l'astrazione
+from abc import ABC, abstractmethod
+
 #CLASSE BASE - ELETTRODOMESTICO
 class Elettrodomestico():
     def __init__(self, marca:str, modello:str, anno_acquisto:int, guasto:str):
@@ -64,8 +67,9 @@ class Lavatrice(Elettrodomestico):
     #METODO STIMA COSTO   
     def stima_costo_base(self):
         #bonus attributi aggiuntivi
-        self.__bonus_capacita = {self.stima_costo_base()} + 25
-        self.__bonus_giri = {self.stima_costo_base()} + 40
+        
+        self.__bonus_capacita = 25
+        self.__bonus_giri =  40
 
         
         #condizioni per il bonus
@@ -73,13 +77,16 @@ class Lavatrice(Elettrodomestico):
             
             if self.__giri_centrifuga <=30:
                 print(f"Costo base manutenzione: {self.stima_costo_base()}") 
-            elif self.__giri_centrifuga > 30:
-                print(f"Costo base manutenzione: {self.__bonus_capacita}") 
-            
-        elif self.__capacita_kg > 10 or self.__giri_centrifuga > 30:
-            self.costo_aggiornato = {self.stima_costo_base()} + self.__bonus_capacita + self.__bonus_giri
-            print(f"Costo base manutenzione: {self.costo_aggiornato}")
+            else:
+                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_giri}") 
         
+        elif self.__capacita_kg > 10:
+
+            if self.__giri_centrifuga <=30:
+                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_capacita}") 
+            else:
+                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_capacita + self.__bonus_giri}") 
+            
         else:
             print("Costo base non disponibile.")
         
