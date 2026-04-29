@@ -1,8 +1,5 @@
 #GESTIONE OFFICINA ELETTRODOMESTICI
 
-#importo collezione abc per l'astrazione
-from abc import ABC, abstractmethod
-
 #CLASSE BASE - ELETTRODOMESTICO
 class Elettrodomestico():
     def __init__(self, marca:str, modello:str, anno_acquisto:int, guasto:str):
