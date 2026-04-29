@@ -31,6 +31,7 @@ Il file contiene già una sezione di simulazione finale che:
 <li>Simula il cambio di stato e la chiusura dei lavori.</li>
 <li>Stampa il riepilogo finanziario e statistico dell'officina.</li>
 </ul>
+
 ### Autori
 
 Sviluppato da: <a href ="https://github.com/auroraz295"> Aurora Zuccarello</a> & <a href="https://github.com/sasabru/DepositoPython_Bruno"> Salvatore Bruno</a>
