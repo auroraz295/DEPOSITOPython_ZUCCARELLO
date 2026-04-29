@@ -66,8 +66,8 @@ class Lavatrice(Elettrodomestico):
      
     #METODO STIMA COSTO   
     def stima_costo_base(self):
-        #bonus attributi aggiuntivi
         
+        #bonus attributi aggiuntivi
         self.__bonus_capacita = 25
         self.__bonus_giri =  40
 
@@ -89,5 +89,44 @@ class Lavatrice(Elettrodomestico):
             
         else:
             print("Costo base non disponibile.")
+ 
+#CLASSE FRIGORIFERO         
+class Frigorifero(Elettrodomestico):
+    def __init__(self, marca, modello, anno_acquisto, guasto, litri:int, ha_freezer:bool):
+        super().init(marca, modello, anno_acquisto, guasto)
         
-    
+        self.__litri = litri
+        self.__ha_freezer = ha_freezer
+        
+    def stima_costo_base(self):
+        
+        #bonus attributi aggiuntivi
+        self.__bonus_litri = 50
+        self.__bonus_freezer =  75
+
+        
+        #condizioni per il bonus
+        if self.__litri <= 10:
+            
+            if self.__ha_freezer == False:
+                print(f"Costo base manutenzione: {self.stima_costo_base()}") 
+            else:
+                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_freezer}") 
+        
+        elif self.__litri > 10:
+
+            if self.__ha_freezer == True:
+                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_litri + self.__bonus_freezer}") 
+            else:
+                print(f"Costo base manutenzione: {self.stima_costo_base() + self.__bonus_litri}") 
+            
+        else:
+            print("Costo base non disponibile.")    
+
+#CLASSE FORNO 
+class Forno(Elettrodomestico):
+    def __init__(self, marca, modello, anno_acquisto, guasto, alimentazione, ventilato):
+        super().init(marca, modello, anno_acquisto, guasto)
+        
+        self.__alimentazione = alimentazione #"elettrico" o "gas"
+        self.__ventilato = ventilato
