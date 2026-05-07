@@ -3,7 +3,7 @@ class Finitura:
 
     # Attributi
     def __init__(self, codice: int, nome: str, materiale: str, colore: str, prezzo: float):
-        self._codice = codice
+        self.__codice = codice
         self._nome = nome
         self._materiale = materiale
         self._colore = colore
@@ -13,9 +13,9 @@ class Finitura:
     def costo(self):
         return self._prezzo
     
-    # Getter codice
-    def get_codice(self): 
-        return self._codice
+     # Getter del codice
+    def get_codice(self):
+        return self.__codice
     
     # Getter e setter nome
     def get_nome(self): 
@@ -26,7 +26,7 @@ class Finitura:
 
     # Getter e setter tessuto
     def get_tessuto(self): 
-        return self._nome
+        return self._tessuto
     def set_tessuto(self, nuovo_tessuto): 
         self._tessuto = nuovo_tessuto
         return self._tessuto
@@ -38,13 +38,6 @@ class Finitura:
         self._colore = nuovo_colore
         return self._colore
 
-    # Getter e setter taglia
-    def get_taglia(self): 
-        return self._taglia
-    def set_taglia(self, nuovo_taglia): 
-        self._taglia = nuovo_taglia
-        return self._taglia
-
     # Getter e setter prezzo
     def get_prezzo(self): 
         return self._prezzo
@@ -53,31 +46,39 @@ class Finitura:
         return self._prezzo
 
 # Classi figlie
+
+# Classe Cravatta
 class Cravatta(Finitura):
     # Attributi
     def __init__(self, codice: int, nome: str, materiale: str, colore: str, prezzo: float, larghezza: int):
         super().__init__(codice, nome, materiale, colore, prezzo)
         self._larghezza = larghezza
 
+    # Metodo per calcolare il costo totale della cravatta in base alla larghezza
     def costo(self):
         costo_per_larghezza = 2.0
         self._costo_totale = self._prezzo + (self._larghezza * costo_per_larghezza)
         return self._costo_totale
-    
-    # Getter e setter larghezza
-    def get_larghezza(self): 
-        return self._larghezza
-    def set_larghezza(self, nuova_larghezza): 
-        self._larghezza = nuova_larghezza
-        return self._larghezza
-    
 
+    # Metodo per rappresentare la cravatta come stringa
+    def __str__(self):
+        return (
+            f"{self.get_codice()} - "
+            f"{self._nome} - "
+            f"{self._materiale} - "
+            f"{self._colore} - "
+            f"{self._prezzo} - "
+            f"{self._larghezza}"
+        )
+
+# Classe Papillon
 class Papillon(Finitura):
     # Attributi
     def __init__(self, codice: int, nome: str, materiale: str, colore: str, prezzo: float, tipo_chiusura: str):
         super().__init__(codice, nome, materiale, colore, prezzo)
         self._tipo_chiusura = tipo_chiusura
 
+    # Metodo per calcolare il costo totale del papillon in base al tipo di chiusura
     def costo(self):
         if self._tipo_chiusura == "a clip":
             costo_per_tipo_chiusura = 5.0
@@ -89,21 +90,27 @@ class Papillon(Finitura):
             return self._costo_totale
         else:
             return self._prezzo
-        
-    # Getter e setter tipo_chiusura
-    def get_tipo_chiusura(self): 
-        return self._tipo_chiusura
-    def set_tipo_chiusura(self, nuova_chiusura): 
-        self._tipo_chiusura = nuova_chiusura
-        return self._tipo_chiusura
 
+    # Metodo per rappresentare il papillon come stringa
+    def __str__(self):
+        return (
+            f"{self.get_codice()} - "
+            f"{self._nome} - "
+            f"{self._materiale} - "
+            f"{self._colore} - "
+            f"{self._prezzo} - "
+            f"{self._tipo_chiusura}"
+        )
 
+# Classe Pochette
 class Pochette(Finitura):
+
     # Attributi
     def __init__(self, codice: int, nome: str, materiale: str, colore: str, prezzo: float, piega_decorativa: bool):
         super().__init__(codice, nome, materiale, colore, prezzo)
         self._piega_decorativa = piega_decorativa
 
+    # Metodo per calcolare il costo totale della pochette in base alla presenza di una piega decorativa
     def costo(self):
         if self._piega_decorativa:
             costo_piega = 3.0
@@ -111,10 +118,14 @@ class Pochette(Finitura):
             return self._costo_totale
         else:
             return self._prezzo
-        
-    # Getter e setter piega_decorativa
-    def get_piega_decorativa(self): 
-        return self._piega_decorativa
-    def set_piega_decorativa(self, nuova_piega_decorativa): 
-        self._piega_decorativa = nuova_piega_decorativa
-        return self._piega_decorativa
+
+    # Metodo per rappresentare la pochette come stringa
+    def __str__(self):
+        return (
+            f"{self.get_codice()} - "
+            f"{self._nome} - "
+            f"{self._materiale} - "
+            f"{self._colore} - "
+            f"{self._prezzo} - "
+            f"{self._piega_decorativa}"
+        )

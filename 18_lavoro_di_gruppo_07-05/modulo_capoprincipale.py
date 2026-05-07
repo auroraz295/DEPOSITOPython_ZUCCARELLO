@@ -2,7 +2,7 @@
 
 class CapoPrincipale:
     
-    #definizione attributi protetti
+    #definizione atrtibuti protetti
     def __init__(self, codice:int, nome:str, tessuto:str, colore:str, taglia:str, prezzo:float):
         self._codice = codice
         self._nome = nome
@@ -76,16 +76,19 @@ class Giacca(CapoPrincipale):
         bonus_bottoni = 2.50
         self.costo_totale = (bonus_bottoni * self._numerobottoni) + self._prezzo
         
-        return self._costo_totale
+        return self.costo_totale
     
-    #GET E SET CARATTERISTICHE
-    def get_numerobottoni(self):
-        return self._numerobottoni
-    
-    def set_numerobottoni(self, nuovi_bottoni):
-        self._numerobottoni = nuovi_bottoni
-        return self._numerobottoni
-        
+    # Rappresentazione stringa dell'oggetto
+    def __str__(self):
+        return (
+            f"{self._codice} - "
+            f"{self._nome} - "
+            f"{self._tessuto} - "
+            f"{self._colore} - "
+            f"{self._taglia} - "
+            f"{self._prezzo} - "
+            f"{self._numerobottoni}"
+        )
 
 class Pantalone(CapoPrincipale):
     #definizione e ereditarietà attributi
@@ -115,15 +118,20 @@ class Pantalone(CapoPrincipale):
             self._costo_totale = tipo_slim + self._prezzo
 
             return self._costo_totale
-            
-    #GET E SET CARATTERISTICHE
-    def get_tipo_taglio(self):
-        return self._tipo_taglio
+        else:
+            return self._prezzo
     
-    def set_tipo_taglio(self, nuovo_tipo):
-        self._tipo_taglio = nuovo_tipo
-        return self._tipo_taglio
-            
+    # definizione del metodo __str__ per la stampa dell'oggetto
+    def __str__(self):
+        return (
+            f"{self._codice} - "
+            f"{self._nome} - "
+            f"{self._tessuto} - "
+            f"{self._colore} - "
+            f"{self._taglia} - "
+            f"{self._prezzo} - "
+            f"{self._tipotaglio}"
+        )
 
 class Gilet(CapoPrincipale):
     #definizione e ereditarietà attributi
@@ -139,15 +147,20 @@ class Gilet(CapoPrincipale):
         
         if self._reversibile:
             self._costo_totale = bonus_reversibile + self._prezzo
+            
             return self._costo_totale
         
         else:
-            return self._prezzo  
-        
-    #GET E SET CARATTERISTICHE
-    def get_reversibile(self):
-        return self._reversibile
+            return self._prezzo
     
-    def set_reversibile(self, nuovo_reversibile):
-        self._reversibile = nuovo_reversibile
-        return self._reversibile
+    # Metodo __str__ per rappresentazione testuale dell'oggetto
+    def __str__(self):
+        return (
+            f"{self._codice} - "
+            f"{self._nome} - "
+            f"{self._tessuto} - "
+            f"{self._colore} - "
+            f"{self._taglia} - "
+            f"{self._prezzo} - "
+            f"{self._reversibile}"
+        )

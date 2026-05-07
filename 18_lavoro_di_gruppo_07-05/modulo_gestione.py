@@ -9,24 +9,32 @@ class GestioneSartoria:
         self._catalogo_capi = []
         self._catalogo_rifiniture = []
         
+        
+    #GET LISTE
+    def get_lista_capi(self):
+        return self._catalogo_capi
+    
+    def get_lista_rifiniture(self):
+        return self._catalogo_rifiniture
 
     #FUNZIONE CREA CAPO
     def crea_capo(self):
-        scelta_capo = int(input("Cosa vuoi creare? 1. Giacca - 2. Pantalone - 3. Gilet - 4- Cravatta - 5. Papillon - 6. Pochette // "))
+        scelta_capo = int(input("Cosa vuoi creare? 1. Giacca - 2. Pantalone - 3. Gilet - 4. Cravatta - 5. Papillon - 6. Pochette // "))
         codice = int(input("Inserisci codice: "))
         nome = codice
         tessuto = input("Inserisci tessuto/materiale: ")
         colore = input("Inserisci colore: ")
-        taglia = input("Inserisci taglia: ")
         prezzo = float(input("Inserisci prezzo: "))
         
         #GIACCA
         if scelta_capo == 1: 
+            taglia = input("Inserisci taglia: ")
             n_bottoni = int(input("Numero bottoni giacca: "))
             self._catalogo_capi.append(Giacca(codice, nome, tessuto, colore, taglia, prezzo, n_bottoni))
         
         #PANTALONE    
         elif scelta_capo == 2:
+            taglia = input("Inserisci taglia: ")
             tipo_taglio = int(input("Tipo taglio: 1. Skinny - 2. Wide - 3. Slim // "))
             
             if tipo_taglio == 1:
@@ -45,7 +53,8 @@ class GestioneSartoria:
         
         #GILET
         elif scelta_capo == 3:
-            reversibile = input("Reversibile: SI / NO")
+            taglia = input("Inserisci taglia: ")
+            reversibile = input("Reversibile: SI / NO - ")
             
             if reversibile == "SI":
                 reversibile = True
@@ -75,14 +84,14 @@ class GestioneSartoria:
         
         #POCHETTE
         elif scelta_capo == 6:
-            piega_decorativa = input("piega_decorativa: SI / NO")
+            piega_decorativa = input("piega_decorativa: SI / NO - ")
             
             if piega_decorativa == "SI":
                 piega_decorativa = True
-                self._catalogo_rifiniture.append(Pochette(codice, nome, tessuto, taglia, colore, prezzo, piega_decorativa))
+                self._catalogo_rifiniture.append(Pochette(codice, nome, tessuto, colore, prezzo, piega_decorativa))
             else:
                 piega_decorativa = False
-                self._catalogo_rifiniture.append(Pochette(codice, nome, tessuto, taglia, colore, prezzo, piega_decorativa))
+                self._catalogo_rifiniture.append(Pochette(codice, nome, tessuto, colore, prezzo, piega_decorativa))
 
 
     #FUNZIONE MODIFICA CAPO
@@ -92,7 +101,7 @@ class GestioneSartoria:
         
         for elemento in catalogo_completo:
             if elemento.get_codice() == codice_da_cercare:
-                scelta_modifica = int(input("Cosa vuoi modificare? 1. Nome - 2. Tessuto - 3. Taglia - 4. Colore - 5. Prezzo - 6. Altre caratteristiche //"))
+                scelta_modifica = int(input("Cosa vuoi modificare? 1. Nome - 2. Tessuto - 3. Taglia - 4. Colore - 5. Prezzo - 6. Altre caratteristiche // "))
                 
                 #set nome
                 if scelta_modifica == 1:
@@ -121,7 +130,7 @@ class GestioneSartoria:
                 
                 #set caratteristiche speciali    
                 elif scelta_modifica == 6: 
-                    scelta_caratteristiche = int(input("Quale caratteristica vuoi modificare? 1. Giacca: Numero bottoni - 2. Pantaloni: Tipo taglio - 3. Gilet: Reversibilità - 4. Cravatta: Larghezza - 5. Papillon: Chiusura - 6. Pochette: Piega decorativa //"))
+                    scelta_caratteristiche = int(input("Quale caratteristica vuoi modificare? 1. Giacca: Numero bottoni - 2. Pantaloni: Tipo taglio - 3. Gilet: Reversibilità - 4. Cravatta: Larghezza - 5. Papillon: Chiusura - 6. Pochette: Piega decorativa // "))
                    
                     #set bottoni giacca
                     if scelta_caratteristiche == 1:
@@ -135,7 +144,7 @@ class GestioneSartoria:
                     
                     #set reversibilità gilet
                     if scelta_caratteristiche == 3:
-                        nuovo_reversibile = input("Inserisci la reversabilità: SI/NO ")
+                        nuovo_reversibile = input("Inserisci la reversabilità: SI/NO - ")
                         
                         if nuovo_reversibile == "SI":
                             nuovo_reversibile = True
@@ -170,7 +179,7 @@ class GestioneSartoria:
                     
                     #set piega decorativa pochette
                     if scelta_caratteristiche == 6:
-                        nuova_piega_decorativa = input("Inserisci la piega decorativa: SI/NO ")
+                        nuova_piega_decorativa = input("Inserisci la piega decorativa: SI/NO - ")
                         
                         if nuova_piega_decorativa == "SI":
                             nuova_piega_decorativa = True
@@ -188,7 +197,7 @@ class GestioneSartoria:
 
     #FUNZIONE ELIMINA CAPO 
     def elimina_capo(self):
-        articolo_da_cercare = int(input("Cosa vuoi eliminare? 1. Capo principale - 2. Componente di rifinitura"))
+        articolo_da_cercare = int(input("Cosa vuoi eliminare? 1. Capo principale - 2. Componente di rifinitura // "))
         
         #elimina capo principale
         if articolo_da_cercare == 1:
@@ -197,10 +206,10 @@ class GestioneSartoria:
             for elemento in self._catalogo_capi:
                 if elemento.get_codice() == codice_da_cercare:
                     self._catalogo_capi.remove(elemento)
-            else:
-                print("Articolo non trovato.")
-            
-            print(f"Articolo eliminato.")
+                    print("Articolo eliminato.")
+                else:
+                    print("Articolo non trovato.")
+        
         
         #elimina componente rifinitura            
         elif articolo_da_cercare == 2:
@@ -209,18 +218,18 @@ class GestioneSartoria:
             for elemento in self._catalogo_rifiniture:
                 if elemento.get_codice() == codice_da_cercare:
                     self._catalogo_capi.remove(elemento)
-            else:
-                print("Articolo non trovato.")
+                    print(f"Articolo eliminato.")
+                else:
+                    print("Articolo non trovato.")
                     
-            print(f"Articolo eliminato.")
             
     #FUNZIONI DI ANALISI
     #print di tutti i capi
     def analisi_tutti(self):
         for c in self._catalogo_capi:
-            print(f"Capo: {c.get_nome()} - Colore: {c.get_colore()} - Costo Totale: {c.costo()}€")
+            print(f"Codice: {c.get_codice()} - Capo: {c.get_nome()} - Colore: {c.get_colore()} - Costo Totale: {c.costo()}€")
         for r in self._catalogo_rifiniture:
-            print(f"Rifinitura: {r.get_nome()} - Colore: {r.get_colore()} - Costo Totale: {r.costo()}€")
+            print(f"Codice: {c.get_codice()} - Rifinitura: {r.get_nome()} - Colore: {r.get_colore()} - Costo Totale: {r.costo()}€")
 
     #print numero capi e rifiniture in totale
     def analisi_tipo(self):
