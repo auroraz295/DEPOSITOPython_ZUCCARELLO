@@ -218,9 +218,9 @@ class GestioneSartoria:
     #print di tutti i capi
     def analisi_tutti(self):
         for c in self._catalogo_capi:
-            print(f"Capo: {c._nome} - Colore: {c._colore} - Costo Totale: {c.costo()}€")
+            print(f"Capo: {c.get_nome()} - Colore: {c.get_colore()} - Costo Totale: {c.costo()}€")
         for r in self._catalogo_rifiniture:
-            print(f"Rifinitura: {r._nome} - Colore: {r._colore} - Costo Totale: {r.costo()}€")
+            print(f"Rifinitura: {r.get_nome()} - Colore: {r.get_colore()} - Costo Totale: {r.costo()}€")
 
     #print numero capi e rifiniture in totale
     def analisi_tipo(self):
