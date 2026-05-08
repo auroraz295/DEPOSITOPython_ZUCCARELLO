@@ -7,13 +7,14 @@
 
 #CLASSE BASE LIBRO
 class Libro:
-    def __init__(self, codice:int, nome:str, genere:str, autore:str, stato:str, prezzo:float):
+    def __init__(self, codice:int, nome:str, genere:str, autore:str, prezzo:float, stato:str):
         self.__codice = codice
         self.__nome = nome
         self.__genere = genere
         self.__autore = autore
-        self.__stato = stato
         self.__prezzo = prezzo
+        self.__stato = stato
+    
         
     #GETTER E SETTER ATTRIBUTI
     
@@ -49,6 +50,14 @@ class Libro:
         self.__autore = nuovo_autore
         return self.__autore
     
+    #prezzo
+    def get_prezzo(self):
+        return self.__prezzo
+    
+    def set_prezzo(self, nuovo_prezzo):
+        self.__prezzo = nuovo_prezzo
+        return self.__prezzo
+    
     #stato
     def get_stato(self):
         return self.__stato
@@ -57,16 +66,12 @@ class Libro:
         self.__stato = nuovo_stato
         return self.__stato
     
-    #prezzo
-    def get_prezzo(self):
-        return self.__prezzo
-    
-    def set_prezzo(self, nuovo_prezzo):
-        self.__prezzo = nuovo_prezzo
-        return self.__prezzo
+    #METODO SPECIALE STR
+    def __str__(self):
+        return f"{self.get_codice()}, {self.get_nome()}, {self.get_genere()}, {self.get_autore()}, {self.get_prezzo()}, {self.get_stato()}"
         
     #FUNZIONE DESCRIZIONE LIBRO
     def descrizione(self):
-        print(f"Libro: {self.__nome} - Genere: {self.__genere} - Autore: {self.__autore} - Stato: {self.__stato} - Prezzo: {self.__prezzo}")
+        print(f"Codice: {self.__codice} - Libro: {self.__nome} - Genere: {self.__genere} - Autore: {self.__autore} - Prezzo: {self.__prezzo} - Stato: {self.__stato}")
         
         
