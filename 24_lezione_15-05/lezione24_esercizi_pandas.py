@@ -58,10 +58,10 @@ print(df_iscritti)
 
 #2. PULIZIA DATI
 #rimuovi duplicati 
-no_duplicati = df_iscritti.drop_duplicates()
+df_iscritti = df_iscritti.drop_duplicates()
 
 print("\nDataframe senza duplicati")
-print(no_duplicati)
+print(df_iscritti)
 
 #se età mancante, sostituisci con la media
 df_iscritti.fillna({"eta": df_iscritti["eta"].mean()}, inplace=True)
@@ -168,3 +168,7 @@ print(df_merge)
 
 #OUTPUT FINALE
 #salva in csv: iscritti_puliti, report_presenze_pivot, iscritti_con_costi
+
+df_iscritti.to_csv("iscritti_puliti.csv", encoding="utf-8")
+pivot_table.to_csv("report_presenze_pivot.csv", encoding="utf-8")
+df_merge.to_csv("iscritti_con_costi.csv", encoding="utf-8")
