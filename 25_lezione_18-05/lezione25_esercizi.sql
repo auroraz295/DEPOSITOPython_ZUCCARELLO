@@ -43,6 +43,18 @@ SELECT country.name, countrylanguage.language, countrylanguage.percentage
 FROM country INNER JOIN countrylanguage ON country.code = countrylanguage.countrycode
 WHERE countrylanguage.percentage = (SELECT MAX(percentage) 
 									FROM countrylanguage as tabella2
-                                    WHERE tabella2.countrycode = countrylanguage.countrycode)
+                                    WHERE tabella2.countrycode = countrylanguage.countrycode);
+
+#7. Creare una view su una query che mostri le città italiane.
+# Sulla view, eseguire query che mostra solo le città con popolazione<100k
+CREATE VIEW italy AS
+SELECT *
+FROM city
+WHERE countrycode LIKE "ITA";
+
+SELECT name, population
+FROM italy
+WHERE population < 100000
+ORDER BY population DESC;
 
 
